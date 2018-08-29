@@ -11,6 +11,8 @@ package org.interview.twitter.stream;
  */
 public class TwitterAuthor
 {
+
+    
     //instance variable for the author of a tweet
     private String userID;
     private String userCreationDate;
@@ -89,5 +91,23 @@ public class TwitterAuthor
     public String getUserScreenName()
     {
         return this.userScreenName;
+    }
+    
+    /**
+     * Override of the equals method 
+     * @param obj - TwitterAuthor
+     * @return boolean
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null || !(obj instanceof TwitterAuthor))
+        {
+            return false;
+        }
+        TwitterAuthor author = (TwitterAuthor) obj;
+        return (this.getUserID().equals(author.getUserID()) && 
+                this.getUserCreationDate().equals(author.getUserCreationDate()) &&
+                this.getUserScreenName().equals(author.getUserScreenName()) );
     }
 }

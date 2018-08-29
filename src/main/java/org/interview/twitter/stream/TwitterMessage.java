@@ -111,6 +111,20 @@ public class TwitterMessage
     {
         this.messageAuthor = messageAuthor;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null || !(obj instanceof TwitterMessage))
+        {
+            return false;
+        }
+        TwitterMessage message = (TwitterMessage) obj;
+        return ( this.getMessageID().equals(message.getMessageID()) &&
+                 this.getMessageCreationDate().equals(message.getMessageCreationDate()) &&
+                 this.getMessageText().equals(message.getMessageText()) &&
+                 this.getMessageAuthor().equals(message.getMessageAuthor()) );
+    }
     
     
 }
