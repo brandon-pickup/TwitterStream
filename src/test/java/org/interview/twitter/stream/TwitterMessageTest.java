@@ -41,9 +41,9 @@ public class TwitterMessageTest
         message = new TwitterMessage(messageID, messageCreationDate, messageText, author);
         Assert.assertNotNull(message);
         
-        Assert.assertEquals(messageID, message.getMessageID());
-        Assert.assertEquals(messageCreationDate, message.getMessageCreationDate());
-        Assert.assertEquals(screenName, author.getUserScreenName());
+        Assert.assertEquals(messageID, message.getId_str());
+        Assert.assertEquals(messageCreationDate, message.getCreated_at());
+        Assert.assertEquals(screenName, author.getScreen_name());
     }
     
     @Test
@@ -53,10 +53,10 @@ public class TwitterMessageTest
         Assert.assertNull(message);
         
         message = new TwitterMessage();
-        Assert.assertNull(message.getMessageID());
-        Assert.assertNull(message.getMessageCreationDate());
-        Assert.assertNull(message.getMessageText());
-        Assert.assertNull(message.getMessageAuthor());
+        Assert.assertNull(message.getId_str());
+        Assert.assertNull(message.getCreated_at());
+        Assert.assertNull(message.getText());
+        Assert.assertNull(message.getUser());
         
         String userID = "12345";
         String creationDate = "2018-08-28";
@@ -67,17 +67,17 @@ public class TwitterMessageTest
         String messageCreationDate = "2018-08-27";
         String messageText = "Test message tweet";
         
-        message.setMessageID(messageID);
-        Assert.assertEquals(messageID, message.getMessageID());
+        message.setId_str(messageID);
+        Assert.assertEquals(messageID, message.getId_str());
         
-        message.setMessageCreationDate(messageCreationDate);
-        Assert.assertEquals(messageCreationDate, message.getMessageCreationDate());
+        message.setCreated_at(messageCreationDate);
+        Assert.assertEquals(messageCreationDate, message.getCreated_at());
         
-        message.setMessageText(messageText);
-        Assert.assertEquals(messageText, message.getMessageText());
+        message.setText(messageText);
+        Assert.assertEquals(messageText, message.getText());
         
-        message.setMessageAuthor(author);
-        Assert.assertEquals(author, message.getMessageAuthor());
+        message.setUser(author);
+        Assert.assertEquals(author, message.getUser());
     }
     
     @Test

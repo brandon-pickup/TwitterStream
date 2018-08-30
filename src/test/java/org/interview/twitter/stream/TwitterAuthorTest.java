@@ -36,9 +36,9 @@ public class TwitterAuthorTest
         author = new TwitterAuthor(userID, creationDate, screenName);
         Assert.assertNotNull(author);
         
-        Assert.assertEquals(userID, author.getUserID());
-        Assert.assertEquals(creationDate, author.getUserCreationDate());
-        Assert.assertEquals(screenName, author.getUserScreenName());
+        Assert.assertEquals(userID, author.getId_str());
+        Assert.assertEquals(creationDate, author.getCreated_at());
+        Assert.assertEquals(screenName, author.getScreen_name());
     }
     
     @Test
@@ -53,18 +53,18 @@ public class TwitterAuthorTest
         
         author = new TwitterAuthor();
         
-        Assert.assertNull(author.getUserID());
-        Assert.assertNull(author.getUserCreationDate());
-        Assert.assertNull(author.getUserScreenName());
+        Assert.assertNull(author.getId_str());
+        Assert.assertNull(author.getCreated_at());
+        Assert.assertNull(author.getScreen_name());
         
-        author.setUserID(userID);
-        Assert.assertEquals(userID, author.getUserID());
+        author.setId_str(userID);
+        Assert.assertEquals(userID, author.getId_str());
         
-        author.setUserCreationDate(creationDate);
-        Assert.assertEquals(creationDate, author.getUserCreationDate());
+        author.setCreated_at(creationDate);
+        Assert.assertEquals(creationDate, author.getCreated_at());
         
-        author.setUserScreenName(screenName);
-        Assert.assertEquals(screenName, author.getUserScreenName());
+        author.setScreen_name(screenName);
+        Assert.assertEquals(screenName, author.getScreen_name());
     }
     
     @Test
