@@ -9,13 +9,13 @@ package org.interview.twitter.stream;
  * Class that describes a particular tweet message on Twitter
  * @author brandonpickup
  */
-public class TwitterMessage
+public class TwitterMessage implements Comparable<TwitterMessage>
 {
     //instance varibale for a tweet message
-    private String messageID;
-    private String messageCreationDate;
-    private String messageText;
-    private TwitterAuthor messageAuthor;
+    private String id_str;
+    private String created_at;
+    private String text;
+    private TwitterAuthor user;
     
     /**
      * No argument constructor
@@ -34,84 +34,89 @@ public class TwitterMessage
      */
     public TwitterMessage(String messageID, String messageCreationDate, String messageText, TwitterAuthor messageAuthor)
     {
-        this.messageID = messageID;
-        this.messageCreationDate = messageCreationDate;
-        this.messageText = messageText;
-        this.messageAuthor = messageAuthor;
+        this.id_str = messageID;
+        this.created_at = messageCreationDate;
+        this.text = messageText;
+        this.user = messageAuthor;
     }
 
     /**
-     * Returns the messageId of a tweet
-     * @return messageID
+     * Returns the message ID of a tweet
+     * @return id_str - String
      */
-    public String getMessageID()
+    public String getId_str()
     {
-        return messageID;
+        return id_str;
     }
 
     /**
-     * Sets the messageID of a tweet
-     * @param messageID - String
+     * Sets the message ID of a tweet
+     * @param id_str - String
      */
-    public void setMessageID(String messageID)
+    public void setId_str(String id_str)
     {
-        this.messageID = messageID;
+        this.id_str = id_str;
     }
 
     /**
-     * Returns the messageCreationDate of a tweet
-     * @return messageCreationDate
+     * Returns the message creation date of a tweet
+     * @return created_at - String
      */
-    public String getMessageCreationDate()
+    public String getCreated_at()
     {
-        return messageCreationDate;
+        return created_at;
     }
 
     /**
-     * Sets the messageCreationDate of a tweet
-     * @param messageCreationDate  - String
+     * Sets the message creation date of a tweet
+     * @param created_at  - String
      */
-    public void setMessageCreationDate(String messageCreationDate)
+    public void setCreated_at(String created_at)
     {
-        this.messageCreationDate = messageCreationDate;
+        this.created_at = created_at;
     }
 
     /**
-     * Returns the messageText of a tweet
-     * @return messageText
+     * Returns the message text of a tweet
+     * @return messageText - String
      */
-    public String getMessageText()
+    public String getText()
     {
-        return messageText;
+        return text;
     }
 
     /**
      * Sets the messageText of a tweet object
-     * @param messageText - String
+     * @param text - String
      */
-    public void setMessageText(String messageText)
+    public void setText(String text)
     {
-        this.messageText = messageText;
+        this.text = text;
     }
 
     /**
      * Returns the messageAuthor of a tweet
-     * @return messageAuthor
+     * @return user - TwitterAuthor
      */
-    public TwitterAuthor getMessageAuthor()
+    public TwitterAuthor getUser()
     {
-        return messageAuthor;
+        return user;
     }
 
     /**
      * Sets the messageAuthor of a tweet
-     * @param messageAuthor - TwitterAuthor
+     * @param user - TwitterAuthor
      */
-    public void setMessageAuthor(TwitterAuthor messageAuthor)
+    public void setUser(TwitterAuthor user)
     {
-        this.messageAuthor = messageAuthor;
+        this.user = user;
     }
 
+    /**
+     * Override of the equals method for comparing equality of 2 TwitterMessage objects
+     * @param obj - Object that should be a TwitterMessage
+     * @return boolean
+     */
     @Override
     public boolean equals(Object obj)
     {
@@ -120,11 +125,42 @@ public class TwitterMessage
             return false;
         }
         TwitterMessage message = (TwitterMessage) obj;
-        return ( this.getMessageID().equals(message.getMessageID()) &&
-                 this.getMessageCreationDate().equals(message.getMessageCreationDate()) &&
-                 this.getMessageText().equals(message.getMessageText()) &&
-                 this.getMessageAuthor().equals(message.getMessageAuthor()) );
+        return ( this.getId_str().equals(message.getId_str()) &&
+                 this.getCreated_at().equals(message.getCreated_at()) &&
+                 this.getText().equals(message.getText()) &&
+                 this.getUser().equals(message.getUser()) );
     }
     
-    
+    /**
+     * Override of the toString() method to return a description of the author in a readble format
+     * @return String
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.getUser().toString());
+        builder.append("\nMessage creation date:\t");  builder.append(this.getCreated_at());
+        builder.append("\nMessage identity value:\t"); builder.append(this.getId_str());
+        builder.append("\nTwitter message text :\t");  builder.append(this.getText());
+        
+        return builder.toString();
+    }
+
+    /**
+     * Functionality to sort messages by author and then by message creation date if the author is the same
+     * @param message - TwitterMessage
+     * @return - int
+     */
+    @Override
+    public int compareTo(TwitterMessage message)
+    {
+        
+        if (message.getUser().equals(this.getUser()))
+        {
+            return this.getCreated_at().compareTo(message.getCreated_at());
+        }
+        
+        return message.getUser().compareTo(this.getUser());
+    }
 }

@@ -1,22 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.interview.twitter.stream;
 
 /**
  * Class that describes the author of a tweet on Twitter
  * @author brandonpickup
  */
-public class TwitterAuthor
+public class TwitterAuthor implements Comparable<TwitterAuthor>
 {
 
     
-    //instance variable for the author of a tweet
-    private String userID;
-    private String userCreationDate;
-    private String userScreenName;
+    /**
+     * instance variable for the author of a tweet
+     * Variable names are of the identical to the fields returned by the Twitter stream API
+     */
+    private String id_str;
+    private String created_at;
+    private String screen_name;
     
     /**
      * No argument constructor
@@ -34,63 +32,63 @@ public class TwitterAuthor
      */
     public TwitterAuthor(String userID, String userCreationDate, String userScreenName)
     {
-        this.userID = userID;
-        this.userCreationDate = userCreationDate;
-        this.userScreenName = userScreenName;
+        this.id_str = userID;
+        this.created_at = userCreationDate;
+        this.screen_name = userScreenName;
     }
     
     /**
-     * Sets the userID field for an Author
-     * @param userID - String
+     * Sets the user ID field of an Author
+     * @param id_str - String
      */
-    public void setUserID(String userID)
+    public void setId_str(String id_str)
     {
-        this.userID = userID;
+        this.id_str = id_str;
     }
     
     /**
-     * Sets the userCreationDate for an Author
-     * @param userCreationDate - String
+     * Sets the user creation date of an Author
+     * @param created_at - String
      */
-    public void setUserCreationDate(String userCreationDate)
+    public void setCreated_at(String created_at)
     {
-        this.userCreationDate = userCreationDate;
+        this.created_at = created_at;
     }
     
     /**
-     * Sets the userScreenName for an Author
-     * @param userScreenName - String
+     * Sets the user screen name of an Author
+     * @param screen_name - String
      */
-    public void setUserScreenName(String userScreenName)
+    public void setScreen_name(String screen_name)
     {
-        this.userScreenName = userScreenName;
+        this.screen_name = screen_name;
     }
     
     /**
-     * Returns the userID for an Author
-     * @return userID 
+     * Returns the user ID of an Author
+     * @return id_str - String 
      */
-    public String getUserID()
+    public String getId_str()
     {
-        return this.userID;
+        return this.id_str;
     }
     
     /**
-     * Returns the userCReationDate for an Author
-     * @return userCReationDate
+     * Returns the user creation date of an Author
+     * @return created_at - String
      */
-    public String getUserCreationDate()
+    public String getCreated_at()
     {
-        return this.userCreationDate;
+        return this.created_at;
     }
     
     /**
-     * Returns the userScreenName for an Author
-     * @return userScreenName
+     * Returns the user screen name for an Author
+     * @return screen_name- String
      */
-    public String getUserScreenName()
+    public String getScreen_name()
     {
-        return this.userScreenName;
+        return this.screen_name;
     }
     
     /**
@@ -106,8 +104,37 @@ public class TwitterAuthor
             return false;
         }
         TwitterAuthor author = (TwitterAuthor) obj;
-        return (this.getUserID().equals(author.getUserID()) && 
-                this.getUserCreationDate().equals(author.getUserCreationDate()) &&
-                this.getUserScreenName().equals(author.getUserScreenName()) );
+        return (this.getId_str().equals(author.getId_str()) && 
+                this.getCreated_at().equals(author.getCreated_at()) &&
+                this.getScreen_name().equals(author.getScreen_name()) );
     }
+    
+    /**
+     * Override of the toString() method to return a description of the author in a readble format
+     * @return String
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Author details:");
+        builder.append("\n\tUser creation date:\t");  builder.append(this.getCreated_at());
+        builder.append("\n\tUser identity value:\t"); builder.append(this.getId_str());
+        builder.append("\n\tUser screen name:\t");    builder.append(this.getScreen_name());
+        
+        return builder.toString();
+    }
+
+    /**
+     * Functionality to sort on creation date when compare to is used
+     * @param author - TwitterAuthor
+     * @return int
+     */
+    @Override
+    public int compareTo(TwitterAuthor author)
+    {
+        return author.getCreated_at().compareTo(this.created_at);
+    }
+    
+
 }
