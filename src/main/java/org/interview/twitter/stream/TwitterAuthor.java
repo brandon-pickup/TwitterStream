@@ -137,7 +137,7 @@ public class TwitterAuthor implements Comparable<TwitterAuthor>
         LocalDateTime thisDateTime = parseStringTime(this.getCreated_at());
         LocalDateTime authorDateTime = parseStringTime(author.getCreated_at());
         
-        return thisDateTime.compareTo(authorDateTime);
+        return authorDateTime.compareTo(thisDateTime);
     }
     
     /**
