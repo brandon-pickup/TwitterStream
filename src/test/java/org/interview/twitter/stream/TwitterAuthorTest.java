@@ -30,14 +30,14 @@ public class TwitterAuthorTest
         Assert.assertNull(author);
         
         String userID = "12345";
-        String creationDate = "2018-08-28";
+        String creationDate = "Mon Oct 30 13:25:07 +0000 2017";
         String screenName = "testUser";
         
         author = new TwitterAuthor(userID, creationDate, screenName);
         Assert.assertNotNull(author);
         
         Assert.assertEquals(userID, author.getId_str());
-        Assert.assertEquals(creationDate, author.getCreated_at());
+        Assert.assertEquals("2017-10-30T13:25:07", author.getCreated_at().toString());
         Assert.assertEquals(screenName, author.getScreen_name());
     }
     
@@ -48,7 +48,7 @@ public class TwitterAuthorTest
         Assert.assertNull(author);
         
         String userID = "12345";
-        String creationDate = "2018-08-28";
+        String creationDate = "Mon Oct 30 13:25:07 +0000 2017";
         String screenName = "testUser";
         
         author = new TwitterAuthor();
@@ -61,7 +61,7 @@ public class TwitterAuthorTest
         Assert.assertEquals(userID, author.getId_str());
         
         author.setCreated_at(creationDate);
-        Assert.assertEquals(creationDate, author.getCreated_at());
+        Assert.assertEquals("2017-10-30T13:25:07", author.getCreated_at().toString());
         
         author.setScreen_name(screenName);
         Assert.assertEquals(screenName, author.getScreen_name());
@@ -71,14 +71,14 @@ public class TwitterAuthorTest
     public void testEquals()
     {
         String userID_author1 = "12345";
-        String creationDate_author1 = "2018-08-28";
+        String creationDate_author1 = "Mon Oct 30 13:25:07 +0000 2017";
         String screenName_author1 = "testUser1";
         
         TwitterAuthor author1 = new TwitterAuthor(userID_author1, creationDate_author1, screenName_author1);
         TwitterAuthor author2 = new TwitterAuthor(userID_author1, creationDate_author1, screenName_author1);
         
         String userID_author2 = "54321";
-        String creationDate_author2 = "2018-08-27";
+        String creationDate_author2 = "Sat Oct 28 13:25:07 +0000 2017";
         String screenName_author2 = "testUser2";
         
         TwitterAuthor author3 = new TwitterAuthor(userID_author2, creationDate_author2, screenName_author2);
@@ -92,5 +92,26 @@ public class TwitterAuthorTest
         Assert.assertNotEquals(null, author1);
         Assert.assertNotEquals(message, author3);
         
+    }
+    
+    @Test
+    public void testCompareTo()
+    {
+        String userID_author1 = "12345";
+        String creationDate_author1 = "Mon Oct 30 13:25:07 +0000 2017";
+        String screenName_author1 = "testUser1";
+        
+        TwitterAuthor author1 = new TwitterAuthor(userID_author1, creationDate_author1, screenName_author1);
+        TwitterAuthor author2 = new TwitterAuthor(userID_author1, creationDate_author1, screenName_author1);
+        
+        String userID_author2 = "54321";
+        String creationDate_author2 = "Sat Oct 28 13:25:07 +0000 2017";
+        String screenName_author2 = "testUser2";
+        
+        TwitterAuthor author3 = new TwitterAuthor(userID_author2, creationDate_author2, screenName_author2);
+        
+        Assert.assertTrue(author1.compareTo(author2) == 0);
+        Assert.assertTrue(author1.compareTo(author3) < 0);
+        Assert.assertTrue(author3.compareTo(author1) > 0);
     }
 }

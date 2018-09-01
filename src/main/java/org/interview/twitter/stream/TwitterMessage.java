@@ -5,6 +5,9 @@
  */
 package org.interview.twitter.stream;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Class that describes a particular tweet message on Twitter
  * @author brandonpickup
@@ -13,10 +16,11 @@ public class TwitterMessage implements Comparable<TwitterMessage>
 {
     //instance varibale for a tweet message
     private String id_str;
-    private String created_at;
+    private LocalDateTime created_at;
     private String text;
     private TwitterAuthor user;
     
+    private final String TWITTER="EEE MMM dd HH:mm:ss Z yyyy";
     /**
      * No argument constructor
      */
@@ -35,9 +39,10 @@ public class TwitterMessage implements Comparable<TwitterMessage>
     public TwitterMessage(String messageID, String messageCreationDate, String messageText, TwitterAuthor messageAuthor)
     {
         this.id_str = messageID;
-        this.created_at = messageCreationDate;
         this.text = messageText;
         this.user = messageAuthor;
+        
+        this.created_at = LocalDateTime.parse(messageCreationDate, DateTimeFormatter.ofPattern(TWITTER));  
     }
 
     /**
@@ -60,9 +65,9 @@ public class TwitterMessage implements Comparable<TwitterMessage>
 
     /**
      * Returns the message creation date of a tweet
-     * @return created_at - String
+     * @return created_at - LocalDateTime
      */
-    public String getCreated_at()
+    public LocalDateTime getCreated_at()
     {
         return created_at;
     }
@@ -73,7 +78,7 @@ public class TwitterMessage implements Comparable<TwitterMessage>
      */
     public void setCreated_at(String created_at)
     {
-        this.created_at = created_at;
+        this.created_at = LocalDateTime.parse(created_at, DateTimeFormatter.ofPattern(TWITTER));
     }
 
     /**
@@ -126,7 +131,7 @@ public class TwitterMessage implements Comparable<TwitterMessage>
         }
         TwitterMessage message = (TwitterMessage) obj;
         return ( this.getId_str().equals(message.getId_str()) &&
-                 this.getCreated_at().equals(message.getCreated_at()) &&
+                 (this.getCreated_at().toString()).equals(message.getCreated_at().toString()) &&
                  this.getText().equals(message.getText()) &&
                  this.getUser().equals(message.getUser()) );
     }

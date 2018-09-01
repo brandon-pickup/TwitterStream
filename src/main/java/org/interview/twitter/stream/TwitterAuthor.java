@@ -1,20 +1,23 @@
 package org.interview.twitter.stream;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Class that describes the author of a tweet on Twitter
  * @author brandonpickup
  */
 public class TwitterAuthor implements Comparable<TwitterAuthor>
 {
-
-    
     /**
      * instance variable for the author of a tweet
      * Variable names are of the identical to the fields returned by the Twitter stream API
      */
     private String id_str;
-    private String created_at;
     private String screen_name;
+    private LocalDateTime created_at;
+    
+    private final String TWITTER="EEE MMM dd HH:mm:ss Z yyyy";
     
     /**
      * No argument constructor
@@ -33,8 +36,9 @@ public class TwitterAuthor implements Comparable<TwitterAuthor>
     public TwitterAuthor(String userID, String userCreationDate, String userScreenName)
     {
         this.id_str = userID;
-        this.created_at = userCreationDate;
         this.screen_name = userScreenName;
+        
+        this.created_at = LocalDateTime.parse(userCreationDate, DateTimeFormatter.ofPattern(TWITTER));        
     }
     
     /**
@@ -52,7 +56,7 @@ public class TwitterAuthor implements Comparable<TwitterAuthor>
      */
     public void setCreated_at(String created_at)
     {
-        this.created_at = created_at;
+        this.created_at = LocalDateTime.parse(created_at, DateTimeFormatter.ofPattern(TWITTER)); ;
     }
     
     /**
@@ -75,9 +79,9 @@ public class TwitterAuthor implements Comparable<TwitterAuthor>
     
     /**
      * Returns the user creation date of an Author
-     * @return created_at - String
+     * @return created_at - LocalDateTime
      */
-    public String getCreated_at()
+    public LocalDateTime getCreated_at()
     {
         return this.created_at;
     }
@@ -105,12 +109,12 @@ public class TwitterAuthor implements Comparable<TwitterAuthor>
         }
         TwitterAuthor author = (TwitterAuthor) obj;
         return (this.getId_str().equals(author.getId_str()) && 
-                this.getCreated_at().equals(author.getCreated_at()) &&
+                (this.getCreated_at().toString()).equals(author.getCreated_at().toString()) &&
                 this.getScreen_name().equals(author.getScreen_name()) );
     }
     
     /**
-     * Override of the toString() method to return a description of the author in a readble format
+     * Override of the toString() method to return a description of the author in a readable format
      * @return String
      */
     @Override

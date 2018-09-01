@@ -52,7 +52,6 @@ public class Main
     
     public static void main(String[] args) throws ParseException
     {   
- 
         //Connect to the API and save output to messages ArrayList
         streamTweetsAndSave();
         
