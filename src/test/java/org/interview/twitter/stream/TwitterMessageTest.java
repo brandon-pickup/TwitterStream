@@ -42,7 +42,7 @@ public class TwitterMessageTest
         Assert.assertNotNull(message);
         
         Assert.assertEquals(messageID, message.getId_str());
-        Assert.assertEquals("2017-10-30T13:25:07", message.getCreated_at().toString());
+        Assert.assertEquals(messageCreationDate, message.getCreated_at());
         Assert.assertEquals(screenName, author.getScreen_name());
     }
     
@@ -71,7 +71,7 @@ public class TwitterMessageTest
         Assert.assertEquals(messageID, message.getId_str());
         
         message.setCreated_at(messageCreationDate);
-        Assert.assertEquals("2017-10-30T13:25:07", message.getCreated_at().toString());
+        Assert.assertEquals(messageCreationDate, message.getCreated_at());
         
         message.setText(messageText);
         Assert.assertEquals(messageText, message.getText());

@@ -37,7 +37,7 @@ public class TwitterAuthorTest
         Assert.assertNotNull(author);
         
         Assert.assertEquals(userID, author.getId_str());
-        Assert.assertEquals("2017-10-30T13:25:07", author.getCreated_at().toString());
+        Assert.assertEquals(creationDate, author.getCreated_at());
         Assert.assertEquals(screenName, author.getScreen_name());
     }
     
@@ -61,7 +61,7 @@ public class TwitterAuthorTest
         Assert.assertEquals(userID, author.getId_str());
         
         author.setCreated_at(creationDate);
-        Assert.assertEquals("2017-10-30T13:25:07", author.getCreated_at().toString());
+        Assert.assertEquals(creationDate, author.getCreated_at());
         
         author.setScreen_name(screenName);
         Assert.assertEquals(screenName, author.getScreen_name());

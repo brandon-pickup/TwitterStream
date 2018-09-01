@@ -148,6 +148,6 @@ public class TwitterAuthor implements Comparable<TwitterAuthor>
     private LocalDateTime parseStringTime(String time)
     {
         String TWITTER="EEE MMM dd HH:mm:ss Z yyyy";
-        return LocalDateTime.parse(created_at, DateTimeFormatter.ofPattern(TWITTER));
+        return LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TWITTER));
     }
 }
