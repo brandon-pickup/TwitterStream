@@ -147,7 +147,7 @@ public class TwitterMessageTest
         TwitterMessage message3 = new TwitterMessage(messageID_message2, messageCreationDate_message2, messageText_message2, author_message2);
         
         Assert.assertTrue(message1.compareTo(message2) == 0);
-        Assert.assertTrue(message1.compareTo(message3) > 0);
-        Assert.assertTrue(message3.compareTo(message1) < 0);
+        Assert.assertTrue(message1.compareTo(message3) < 0);
+        Assert.assertTrue(message3.compareTo(message1) > 0);
     }
 }

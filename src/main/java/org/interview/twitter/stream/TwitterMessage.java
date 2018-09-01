@@ -163,7 +163,7 @@ public class TwitterMessage implements Comparable<TwitterMessage>
         
         if (message.getUser().equals(this.getUser()))
         {
-            return messageDateTime.compareTo(thisDateTime);
+            return thisDateTime.compareTo(messageDateTime);
         }
         
         return (message.getUser()).compareTo(this.getUser());

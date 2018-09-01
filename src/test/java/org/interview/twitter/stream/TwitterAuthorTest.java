@@ -111,7 +111,7 @@ public class TwitterAuthorTest
         TwitterAuthor author3 = new TwitterAuthor(userID_author2, creationDate_author2, screenName_author2);
         
         Assert.assertTrue(author1.compareTo(author2) == 0);
-        Assert.assertTrue(author1.compareTo(author3) < 0);
-        Assert.assertTrue(author3.compareTo(author1) > 0);
+        Assert.assertTrue(author1.compareTo(author3) > 0);
+        Assert.assertTrue(author3.compareTo(author1) < 0);
     }
 }
