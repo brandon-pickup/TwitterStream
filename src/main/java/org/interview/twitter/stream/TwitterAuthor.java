@@ -15,10 +15,8 @@ public class TwitterAuthor implements Comparable<TwitterAuthor>
      */
     private String id_str;
     private String screen_name;
-    private LocalDateTime created_at;
-    
-    private final String TWITTER="EEE MMM dd HH:mm:ss Z yyyy";
-    
+    private String created_at;
+   
     /**
      * No argument constructor
      */
@@ -37,8 +35,7 @@ public class TwitterAuthor implements Comparable<TwitterAuthor>
     {
         this.id_str = userID;
         this.screen_name = userScreenName;
-        
-        this.created_at = LocalDateTime.parse(userCreationDate, DateTimeFormatter.ofPattern(TWITTER));        
+        this.created_at = userCreationDate;
     }
     
     /**
@@ -56,7 +53,7 @@ public class TwitterAuthor implements Comparable<TwitterAuthor>
      */
     public void setCreated_at(String created_at)
     {
-        this.created_at = LocalDateTime.parse(created_at, DateTimeFormatter.ofPattern(TWITTER)); ;
+        this.created_at = created_at;
     }
     
     /**
@@ -79,9 +76,9 @@ public class TwitterAuthor implements Comparable<TwitterAuthor>
     
     /**
      * Returns the user creation date of an Author
-     * @return created_at - LocalDateTime
+     * @return created_at - String
      */
-    public LocalDateTime getCreated_at()
+    public String getCreated_at()
     {
         return this.created_at;
     }
@@ -137,8 +134,20 @@ public class TwitterAuthor implements Comparable<TwitterAuthor>
     @Override
     public int compareTo(TwitterAuthor author)
     {
-        return author.getCreated_at().compareTo(this.created_at);
+        LocalDateTime thisDateTime = parseStringTime(this.getCreated_at());
+        LocalDateTime authorDateTime = parseStringTime(author.getCreated_at());
+        
+        return authorDateTime.compareTo(thisDateTime);
     }
     
-
+    /**
+     * Helper to parse a Twitter timestamp to LocalDateTime format
+     * @param time - String
+     * @return LocalDateTime
+     */
+    private LocalDateTime parseStringTime(String time)
+    {
+        String TWITTER="EEE MMM dd HH:mm:ss Z yyyy";
+        return LocalDateTime.parse(created_at, DateTimeFormatter.ofPattern(TWITTER));
+    }
 }

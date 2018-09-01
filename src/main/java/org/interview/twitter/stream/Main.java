@@ -29,7 +29,7 @@ import org.interview.oauth.twitter.TwitterAuthenticator;
  */
 public class Main
 {    
-    private static final int MAX_NUMBER_OF_MESSAGES = 100;
+    private static final int MAX_NUMBER_OF_MESSAGES = 2;
     private static final int MAX_SECONDS_ALLOWED_TO_STREAM = 30;
     private static final String CONSUMER_KEY = "vp8qXAMoZzy6jowJdtouPLUUb";
     private static final String CONSUMER_SECRET = "IMx3eIRfXXbRimoIz7cNpZCl0dr9dYEdRuDVTr2C4LdResXjN7";
@@ -97,6 +97,7 @@ public class Main
                 
                 // Parse the line received from the Twitter API
                 TwitterMessage message = parseInputFromTwitter(input);
+                System.out.println(message.getCreated_at());
                 
                 //do not save the message if the parser returns a null value
                 if (message != null)
@@ -135,7 +136,7 @@ public class Main
     private static TwitterMessage parseInputFromTwitter(String line)
     {
         Gson g = new Gson();
-        
+
         //only return a TwitterMessage if the String starts with the correct character
         //this resolves an issue faced when parsing empty lines
         return line.startsWith("{") ? g.fromJson(line.trim(), TwitterMessage.class) : null;

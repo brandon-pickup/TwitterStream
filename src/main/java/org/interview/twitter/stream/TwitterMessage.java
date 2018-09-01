@@ -16,11 +16,10 @@ public class TwitterMessage implements Comparable<TwitterMessage>
 {
     //instance varibale for a tweet message
     private String id_str;
-    private LocalDateTime created_at;
+    private String created_at;
     private String text;
     private TwitterAuthor user;
-    
-    private final String TWITTER="EEE MMM dd HH:mm:ss Z yyyy";
+        
     /**
      * No argument constructor
      */
@@ -41,8 +40,7 @@ public class TwitterMessage implements Comparable<TwitterMessage>
         this.id_str = messageID;
         this.text = messageText;
         this.user = messageAuthor;
-        
-        this.created_at = LocalDateTime.parse(messageCreationDate, DateTimeFormatter.ofPattern(TWITTER));  
+        this.created_at = messageCreationDate;
     }
 
     /**
@@ -51,7 +49,7 @@ public class TwitterMessage implements Comparable<TwitterMessage>
      */
     public String getId_str()
     {
-        return id_str;
+        return this.id_str;
     }
 
     /**
@@ -65,11 +63,11 @@ public class TwitterMessage implements Comparable<TwitterMessage>
 
     /**
      * Returns the message creation date of a tweet
-     * @return created_at - LocalDateTime
+     * @return created_at - String
      */
-    public LocalDateTime getCreated_at()
+    public String getCreated_at()
     {
-        return created_at;
+        return this.created_at;
     }
 
     /**
@@ -78,7 +76,7 @@ public class TwitterMessage implements Comparable<TwitterMessage>
      */
     public void setCreated_at(String created_at)
     {
-        this.created_at = LocalDateTime.parse(created_at, DateTimeFormatter.ofPattern(TWITTER));
+        this.created_at = created_at;
     }
 
     /**
@@ -87,7 +85,7 @@ public class TwitterMessage implements Comparable<TwitterMessage>
      */
     public String getText()
     {
-        return text;
+        return this.text;
     }
 
     /**
@@ -105,7 +103,7 @@ public class TwitterMessage implements Comparable<TwitterMessage>
      */
     public TwitterAuthor getUser()
     {
-        return user;
+        return this.user;
     }
 
     /**
@@ -131,7 +129,7 @@ public class TwitterMessage implements Comparable<TwitterMessage>
         }
         TwitterMessage message = (TwitterMessage) obj;
         return ( this.getId_str().equals(message.getId_str()) &&
-                 (this.getCreated_at().toString()).equals(message.getCreated_at().toString()) &&
+                 this.getCreated_at().equals(message.getCreated_at()) &&
                  this.getText().equals(message.getText()) &&
                  this.getUser().equals(message.getUser()) );
     }
@@ -160,12 +158,25 @@ public class TwitterMessage implements Comparable<TwitterMessage>
     @Override
     public int compareTo(TwitterMessage message)
     {
+        LocalDateTime thisDateTime = parseStringTime(this.getCreated_at());
+        LocalDateTime messageDateTime = parseStringTime(message.getCreated_at());
         
         if (message.getUser().equals(this.getUser()))
         {
-            return this.getCreated_at().compareTo(message.getCreated_at());
+            return messageDateTime.compareTo(thisDateTime);
         }
         
-        return message.getUser().compareTo(this.getUser());
+        return (message.getUser()).compareTo(this.getUser());
+    }
+    
+    /**
+     * Helper to parse a Twitter timestamp to LocalDateTime format
+     * @param time - String
+     * @return LocalDateTime
+     */
+    private LocalDateTime parseStringTime(String time)
+    {
+        String TWITTER="EEE MMM dd HH:mm:ss Z yyyy";
+        return LocalDateTime.parse(created_at, DateTimeFormatter.ofPattern(TWITTER));
     }
 }
