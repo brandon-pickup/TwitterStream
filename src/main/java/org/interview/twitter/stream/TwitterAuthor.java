@@ -106,7 +106,7 @@ public class TwitterAuthor implements Comparable<TwitterAuthor>
         }
         TwitterAuthor author = (TwitterAuthor) obj;
         return (this.getId_str().equals(author.getId_str()) && 
-                (this.getCreated_at().toString()).equals(author.getCreated_at().toString()) &&
+                this.getCreated_at().equals(author.getCreated_at()) &&
                 this.getScreen_name().equals(author.getScreen_name()) );
     }
     
